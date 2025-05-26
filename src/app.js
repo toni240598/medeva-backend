@@ -9,7 +9,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 db.sequelize.sync({ alter: true })  // atau force: true
   .then(() => {
     console.log("✅ Database synced!");
@@ -17,8 +16,10 @@ db.sequelize.sync({ alter: true })  // atau force: true
   .catch((err) => {
     console.error("❌ Failed to sync database:", err);
   });
+
 app.use(responseMiddleware); // harus di taruh setelah app.use dari library
 app.use('/api', apiRoutes);
+app.use('/api/files', express.static("uploads"));
 app.use((req, res) => {
     res.status(404).json({ message: 'Route not found' });
 });

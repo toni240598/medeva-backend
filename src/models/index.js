@@ -3,7 +3,7 @@ const path = require("path");
 const { Sequelize, DataTypes } = require("sequelize");
 
 // Setup koneksi ke PostgreSQL
-const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://user:pass@localhost:5432/dbname', {
+const sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:admin@localhost:5432/medeva_db', {
   dialect: "postgres",
   logging: false,
 });

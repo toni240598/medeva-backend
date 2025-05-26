@@ -1,4 +1,4 @@
-const { sequelize, Role, JobTitle, Province, City, District, Village } = require('../models');
+const { sequelize, Role, JobTitle, Province, City, District, Village, DoctorCode } = require('../models');
 
 const seed = async () => {
   try {
@@ -46,6 +46,13 @@ const seed = async () => {
       // Lowokwaru
       { name: "Jatimulyo", districtId: lowokwaru.id },
       { name: "Dinoyo", districtId: lowokwaru.id },
+    ]);
+
+    // 5. DoctorCodes
+    await DoctorCode.bulkCreate([
+      { code: "DOK001", description: "Dokter Spesialis Anak" },
+      { code: "DOK002", description: "Dokter Umum" },
+      { code: "DOK003", description: "Dokter Gigi" },
     ]);
 
     console.log('✅ Seeder selesai');

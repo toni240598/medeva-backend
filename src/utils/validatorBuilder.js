@@ -38,6 +38,10 @@ const bodyValidator = {
         name: [{required: true, isString: true}],
         districtId: [{required: true, isNumber: true}],
     },
+    createDoctorCode: {
+        code: [{required: true, isString: true}],
+        description: [{required: true, isString: true}],
+    },
 };
 
 const buildValidators = (rules) => {

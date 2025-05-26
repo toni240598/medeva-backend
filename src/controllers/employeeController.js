@@ -1,4 +1,5 @@
-const { Role, JobTitle, Province, City, District, Village } = require('../models');
+const { Op } = require("sequelize");
+const { Role, JobTitle, Province, City, District, Village, DoctorCode, Employee } = require('../models');
 
 const getProfile = (req, res) => {
     res.json(req.user);
@@ -78,7 +79,55 @@ const createVillage = async (req, res) => {
 };
 
 
+const getDoctorCodes = async (req, res) => {
+    const data = await DoctorCode.findAll();
+    res.json(data);
+};
+
+const createDoctorCode = async (req, res) => {
+    const { code, description } = req.body;
+    const newDoctorCode = await DoctorCode.create({ code, description });
+    res.status(201).json(newDoctorCode);
+};
+
+const createEmployee = async (req, res) => {
+    const {
+        fullName, identityNumber, gender, birthPlace, birthDate,
+        phoneNumber, provinceId, cityId, districtId, villageId,
+        addressDetail, username, email, password,
+        contractStart, contractEnd, maritalStatus, doctorCodeId
+    } = req.body;
+
+    const photoUrl = req.file ? `/api/files/${req.file.filename}` : null;
+
+    const newEmployee = await Employee.create({
+        fullName, identityNumber, gender, birthPlace, birthDate,
+        phoneNumber, provinceId, cityId, districtId, villageId,
+        addressDetail, username, email, password,
+        contractStart, contractEnd, maritalStatus, doctorCodeId,
+        photoUrl,
+    });
+
+    res.status(201).json(newEmployee);
+}
+
+const getEmployees = async (req, res) => {
+  const { status, search } = req.query;
+
+  const where = {};
+  if (status) where.status = status;
+  if (search) where.fullName = { [Op.iLike]: `%${search}%` };
+
+  const employees = await Employee.findAll({
+    where,
+    include: ['province', "city", "district", "village", "doctorCode"],
+    order: [["createdAt", "DESC"]],
+  });
+
+  res.json(employees);
+};
+
 module.exports = {
     getProfile, getRoles, getJobTitles, createRole, createJobTitle, getProvinces, createProvince, getCities, createCity,
-    getDistricts, createDistrict, getVillages, createVillage,
+    getDistricts, createDistrict, getVillages, createVillage, getDoctorCodes, createDoctorCode, getEmployees, createEmployee,
 };
