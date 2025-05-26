@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      jobTitleLabel: {
+      customJobTitle: {
         type: DataTypes.STRING,
         allowNull: true,
       },
