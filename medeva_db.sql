@@ -166,6 +166,20 @@ ALTER SEQUENCE public.doctor_codes_id_seq OWNED BY public.doctor_codes.id;
 
 
 --
+-- Name: employee_roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.employee_roles (
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL,
+    "employeeId" integer NOT NULL,
+    "roleId" integer NOT NULL
+);
+
+
+ALTER TABLE public.employee_roles OWNER TO postgres;
+
+--
 -- Name: employees; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -193,7 +207,6 @@ CREATE TABLE public.employees (
     "updatedAt" timestamp with time zone NOT NULL,
     "photoUrl" character varying(255),
     status public.enum_employees_status DEFAULT 'active'::public.enum_employees_status,
-    "roleId" integer,
     "jobTitleId" integer,
     "jobTitleLabel" character varying(255)
 );
@@ -447,11 +460,21 @@ COPY public.doctor_codes (id, code, description) FROM stdin;
 
 
 --
+-- Data for Name: employee_roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.employee_roles ("createdAt", "updatedAt", "employeeId", "roleId") FROM stdin;
+2025-05-27 03:55:55.467+07	2025-05-27 03:55:55.467+07	7	1
+2025-05-27 03:55:55.467+07	2025-05-27 03:55:55.467+07	7	2
+\.
+
+
+--
 -- Data for Name: employees; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.employees (id, "fullName", "identityNumber", gender, "birthPlace", "birthDate", "phoneNumber", "provinceId", "cityId", "districtId", "villageId", "addressDetail", username, email, password, "contractStartDate", "contractEndDate", "maritalStatus", "doctorCodeId", "createdAt", "updatedAt", "photoUrl", status, "roleId", "jobTitleId", "jobTitleLabel") FROM stdin;
-6	Budi Santoso	1234567890	male	Malang	1998-05-24	081234567890	1	1	1	1	Jl. Mawar No. 12 RT 03 RW 02	budisantoso	budi@example.com	$2b$10$mYZzwXXwOANM1jWNnNyPbOY17rcPaMA2GsjKDPWMOIX.5NcNakMKm	\N	\N	married	1	2025-05-27 02:16:54.585+07	2025-05-27 02:16:54.585+07	/api/files/1748287014558.jpg	active	1	1	\N
+COPY public.employees (id, "fullName", "identityNumber", gender, "birthPlace", "birthDate", "phoneNumber", "provinceId", "cityId", "districtId", "villageId", "addressDetail", username, email, password, "contractStartDate", "contractEndDate", "maritalStatus", "doctorCodeId", "createdAt", "updatedAt", "photoUrl", status, "jobTitleId", "jobTitleLabel") FROM stdin;
+7	Budi Santoso	1234567890	male	Malang	1998-05-24	081234567890	1	1	1	1	Jl. Mawar No. 12 RT 03 RW 02	budisantoso	budi@example.com	$2b$10$fS.RKrwjN.AfndyyLM0wbelc3nywohv056qOXPMg6iTpMhM0WHPv.	\N	\N	married	1	2025-05-27 03:55:54.661+07	2025-05-27 03:55:54.661+07	/api/files/1748292954609.jpg	active	1	\N
 \.
 
 
@@ -528,7 +551,7 @@ SELECT pg_catalog.setval('public.doctor_codes_id_seq', 3, true);
 -- Name: employees_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.employees_id_seq', 6, true);
+SELECT pg_catalog.setval('public.employees_id_seq', 7, true);
 
 
 --
@@ -1096,11 +1119,107 @@ ALTER TABLE ONLY public.doctor_codes
 
 
 --
+-- Name: doctor_codes doctor_codes_code_key68; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key68 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key69; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key69 UNIQUE (code);
+
+
+--
 -- Name: doctor_codes doctor_codes_code_key7; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.doctor_codes
     ADD CONSTRAINT doctor_codes_code_key7 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key70; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key70 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key71; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key71 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key72; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key72 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key73; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key73 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key74; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key74 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key75; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key75 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key76; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key76 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key77; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key77 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key78; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key78 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key79; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key79 UNIQUE (code);
 
 
 --
@@ -1112,6 +1231,86 @@ ALTER TABLE ONLY public.doctor_codes
 
 
 --
+-- Name: doctor_codes doctor_codes_code_key80; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key80 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key81; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key81 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key82; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key82 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key83; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key83 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key84; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key84 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key85; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key85 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key86; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key86 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key87; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key87 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key88; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key88 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key89; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key89 UNIQUE (code);
+
+
+--
 -- Name: doctor_codes doctor_codes_code_key9; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1120,11 +1319,43 @@ ALTER TABLE ONLY public.doctor_codes
 
 
 --
+-- Name: doctor_codes doctor_codes_code_key90; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key90 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key91; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key91 UNIQUE (code);
+
+
+--
+-- Name: doctor_codes doctor_codes_code_key92; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.doctor_codes
+    ADD CONSTRAINT doctor_codes_code_key92 UNIQUE (code);
+
+
+--
 -- Name: doctor_codes doctor_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.doctor_codes
     ADD CONSTRAINT doctor_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: employee_roles employee_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employee_roles
+    ADD CONSTRAINT employee_roles_pkey PRIMARY KEY ("employeeId", "roleId");
 
 
 --
@@ -1432,6 +1663,62 @@ ALTER TABLE ONLY public.employees
 
 
 --
+-- Name: employees employees_email_key43; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key43 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key44; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key44 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key45; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key45 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key46; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key46 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key47; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key47 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key48; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key48 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key49; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key49 UNIQUE (email);
+
+
+--
 -- Name: employees employees_email_key5; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1440,11 +1727,155 @@ ALTER TABLE ONLY public.employees
 
 
 --
+-- Name: employees employees_email_key50; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key50 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key51; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key51 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key52; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key52 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key53; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key53 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key54; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key54 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key55; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key55 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key56; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key56 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key57; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key57 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key58; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key58 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key59; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key59 UNIQUE (email);
+
+
+--
 -- Name: employees employees_email_key6; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.employees
     ADD CONSTRAINT employees_email_key6 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key60; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key60 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key61; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key61 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key62; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key62 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key63; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key63 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key64; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key64 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key65; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key65 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key66; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key66 UNIQUE (email);
+
+
+--
+-- Name: employees employees_email_key67; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_email_key67 UNIQUE (email);
 
 
 --
@@ -1784,6 +2215,54 @@ ALTER TABLE ONLY public.employees
 
 
 --
+-- Name: employees employees_identityNumber_key44; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key44" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key45; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key45" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key46; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key46" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key47; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key47" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key48; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key48" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key49; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key49" UNIQUE ("identityNumber");
+
+
+--
 -- Name: employees employees_identityNumber_key5; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1792,11 +2271,163 @@ ALTER TABLE ONLY public.employees
 
 
 --
+-- Name: employees employees_identityNumber_key50; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key50" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key51; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key51" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key52; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key52" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key53; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key53" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key54; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key54" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key55; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key55" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key56; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key56" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key57; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key57" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key58; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key58" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key59; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key59" UNIQUE ("identityNumber");
+
+
+--
 -- Name: employees employees_identityNumber_key6; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.employees
     ADD CONSTRAINT "employees_identityNumber_key6" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key60; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key60" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key61; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key61" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key62; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key62" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key63; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key63" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key64; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key64" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key65; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key65" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key66; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key66" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key67; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key67" UNIQUE ("identityNumber");
+
+
+--
+-- Name: employees employees_identityNumber_key68; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT "employees_identityNumber_key68" UNIQUE ("identityNumber");
 
 
 --
@@ -2136,6 +2767,62 @@ ALTER TABLE ONLY public.employees
 
 
 --
+-- Name: employees employees_username_key43; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key43 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key44; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key44 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key45; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key45 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key46; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key46 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key47; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key47 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key48; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key48 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key49; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key49 UNIQUE (username);
+
+
+--
 -- Name: employees employees_username_key5; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2144,11 +2831,155 @@ ALTER TABLE ONLY public.employees
 
 
 --
+-- Name: employees employees_username_key50; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key50 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key51; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key51 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key52; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key52 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key53; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key53 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key54; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key54 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key55; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key55 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key56; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key56 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key57; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key57 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key58; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key58 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key59; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key59 UNIQUE (username);
+
+
+--
 -- Name: employees employees_username_key6; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.employees
     ADD CONSTRAINT employees_username_key6 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key60; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key60 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key61; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key61 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key62; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key62 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key63; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key63 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key64; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key64 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key65; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key65 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key66; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key66 UNIQUE (username);
+
+
+--
+-- Name: employees employees_username_key67; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_username_key67 UNIQUE (username);
 
 
 --
@@ -2680,11 +3511,123 @@ ALTER TABLE ONLY public.job_titles
 
 
 --
+-- Name: job_titles job_titles_name_key66; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key66 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key67; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key67 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key68; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key68 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key69; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key69 UNIQUE (name);
+
+
+--
 -- Name: job_titles job_titles_name_key7; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.job_titles
     ADD CONSTRAINT job_titles_name_key7 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key70; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key70 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key71; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key71 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key72; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key72 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key73; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key73 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key74; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key74 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key75; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key75 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key76; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key76 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key77; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key77 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key78; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key78 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key79; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key79 UNIQUE (name);
 
 
 --
@@ -2696,11 +3639,99 @@ ALTER TABLE ONLY public.job_titles
 
 
 --
+-- Name: job_titles job_titles_name_key80; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key80 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key81; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key81 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key82; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key82 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key83; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key83 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key84; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key84 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key85; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key85 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key86; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key86 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key87; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key87 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key88; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key88 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key89; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key89 UNIQUE (name);
+
+
+--
 -- Name: job_titles job_titles_name_key9; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.job_titles
     ADD CONSTRAINT job_titles_name_key9 UNIQUE (name);
+
+
+--
+-- Name: job_titles job_titles_name_key90; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.job_titles
+    ADD CONSTRAINT job_titles_name_key90 UNIQUE (name);
 
 
 --
@@ -3224,11 +4255,123 @@ ALTER TABLE ONLY public.roles
 
 
 --
+-- Name: roles roles_name_key66; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key66 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key67; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key67 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key68; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key68 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key69; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key69 UNIQUE (name);
+
+
+--
 -- Name: roles roles_name_key7; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.roles
     ADD CONSTRAINT roles_name_key7 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key70; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key70 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key71; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key71 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key72; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key72 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key73; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key73 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key74; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key74 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key75; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key75 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key76; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key76 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key77; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key77 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key78; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key78 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key79; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key79 UNIQUE (name);
 
 
 --
@@ -3240,11 +4383,99 @@ ALTER TABLE ONLY public.roles
 
 
 --
+-- Name: roles roles_name_key80; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key80 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key81; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key81 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key82; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key82 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key83; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key83 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key84; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key84 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key85; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key85 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key86; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key86 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key87; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key87 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key88; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key88 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key89; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key89 UNIQUE (name);
+
+
+--
 -- Name: roles roles_name_key9; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.roles
     ADD CONSTRAINT roles_name_key9 UNIQUE (name);
+
+
+--
+-- Name: roles roles_name_key90; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_name_key90 UNIQUE (name);
 
 
 --
@@ -3277,6 +4508,22 @@ ALTER TABLE ONLY public.cities
 
 ALTER TABLE ONLY public.districts
     ADD CONSTRAINT "districts_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES public.cities(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: employee_roles employee_roles_employeeId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employee_roles
+    ADD CONSTRAINT "employee_roles_employeeId_fkey" FOREIGN KEY ("employeeId") REFERENCES public.employees(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: employee_roles employee_roles_roleId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.employee_roles
+    ADD CONSTRAINT "employee_roles_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES public.roles(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -3317,14 +4564,6 @@ ALTER TABLE ONLY public.employees
 
 ALTER TABLE ONLY public.employees
     ADD CONSTRAINT "employees_provinceId_fkey" FOREIGN KEY ("provinceId") REFERENCES public.provinces(id) ON UPDATE CASCADE ON DELETE SET NULL;
-
-
---
--- Name: employees employees_roleId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.employees
-    ADD CONSTRAINT "employees_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES public.roles(id) ON UPDATE CASCADE ON DELETE SET NULL;
 
 
 --

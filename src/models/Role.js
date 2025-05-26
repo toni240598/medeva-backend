@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Role', {
+  const Role = sequelize.define('Role', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -9,5 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'roles',
     timestamps: false
   });
+
+  Role.associate = (models) => {
+    Role.belongsToMany(models.Employee, { through: 'employee_roles', foreignKey: 'roleId', otherKey: 'employeeId', });
+  };
+
+  return Role;
 };
 

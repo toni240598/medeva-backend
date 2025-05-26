@@ -96,36 +96,39 @@ const createEmployee = async (req, res) => {
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
         contractStart, contractEnd, maritalStatus, doctorCodeId,
-        roleId, jobTitleId, jobTitleLabel,
+        jobTitleId, jobTitleLabel, roleIds
     } = req.body;
-
     const photoUrl = req.file ? `/api/files/${req.file.filename}` : null;
+    const dataRoleIds = Array.isArray(roleIds)
+        ? roleIds.map(id => parseInt(id))
+        : [parseInt(roleIds)];
+    // console.log(dataRoleIds);
 
     const newEmployee = await Employee.create({
         fullName, identityNumber, gender, birthPlace, birthDate,
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
         contractStart, contractEnd, maritalStatus, doctorCodeId,
-        photoUrl, roleId, jobTitleId, jobTitleLabel,
+        photoUrl, jobTitleId, jobTitleLabel,
     });
-
+    await newEmployee.setRoles(req.body.roleIds);
     res.status(201).json(newEmployee);
 }
 
 const getEmployees = async (req, res) => {
-  const { status, search } = req.query;
+    const { status, search } = req.query;
 
-  const where = {};
-  if (status) where.status = status;
-  if (search) where.fullName = { [Op.iLike]: `%${search}%` };
+    const where = {};
+    if (status) where.status = status;
+    if (search) where.fullName = { [Op.iLike]: `%${search}%` };
 
-  const employees = await Employee.findAll({
-    where,
-    include: ['province', "city", "district", "village", "doctorCode", 'role', 'jobTitle'],
-    order: [["createdAt", "DESC"]],
-  });
+    const employees = await Employee.findAll({
+        where,
+        include: ['province', "city", "district", "village", "doctorCode", 'roles', 'jobTitle'],
+        order: [["createdAt", "DESC"]],
+    });
 
-  res.json(employees);
+    res.json(employees);
 };
 
 module.exports = {
