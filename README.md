@@ -19,11 +19,9 @@ Langkah ini akan mengunduh semua dependency yang dibutuhkan ke dalam folder node
 
 Sebelum menjalankan aplikasi, salin atau buat file .env di root proyek dan sesuaikan isi konfigurasinya sesuai dengan lingkungan dan database PostgreSQL Anda. Contoh konfigurasi:
 ```bash
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=medeva_db
-DB_USERNAME=postgres
-DB_PASSWORD=yourpassword
+PORT=3001
+JWT_SECRET=rahasiajwt123
+DATABASE_URL=postgres://postgres:admin@localhost:5432/medeva_db
 ```
 Pastikan database medeva_db sudah dibuat terlebih dahulu di PostgreSQL Anda.
 
