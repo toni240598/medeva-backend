@@ -95,7 +95,8 @@ const createEmployee = async (req, res) => {
         fullName, identityNumber, gender, birthPlace, birthDate,
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
-        contractStart, contractEnd, maritalStatus, doctorCodeId
+        contractStart, contractEnd, maritalStatus, doctorCodeId,
+        roleId, jobTitleId, jobTitleLabel,
     } = req.body;
 
     const photoUrl = req.file ? `/api/files/${req.file.filename}` : null;
@@ -105,7 +106,7 @@ const createEmployee = async (req, res) => {
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
         contractStart, contractEnd, maritalStatus, doctorCodeId,
-        photoUrl,
+        photoUrl, roleId, jobTitleId, jobTitleLabel,
     });
 
     res.status(201).json(newEmployee);
@@ -120,7 +121,7 @@ const getEmployees = async (req, res) => {
 
   const employees = await Employee.findAll({
     where,
-    include: ['province', "city", "district", "village", "doctorCode"],
+    include: ['province', "city", "district", "village", "doctorCode", 'role', 'jobTitle'],
     order: [["createdAt", "DESC"]],
   });
 

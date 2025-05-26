@@ -52,6 +52,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
+      roleId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      jobTitleId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      jobTitleLabel: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       addressDetail: {
         type: DataTypes.TEXT,
         allowNull: true,
@@ -115,6 +127,8 @@ module.exports = (sequelize, DataTypes) => {
     Employee.belongsTo(models.District, { foreignKey: "districtId", as: "district" });
     Employee.belongsTo(models.Village, { foreignKey: "villageId", as: "village" });
     Employee.belongsTo(models.DoctorCode, { foreignKey: "doctorCodeId", as: "doctorCode" });
+    Employee.belongsTo(models.Role, { foreignKey: "roleId", as: "role" });
+    Employee.belongsTo(models.JobTitle, { foreignKey: "jobTitleId", as: "jobTitle" });
   };
 
   return Employee;

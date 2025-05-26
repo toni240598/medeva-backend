@@ -64,6 +64,8 @@ router.post(
         body("provinceId").isInt().withMessage("ProvinceId harus angka"),
         body("cityId").isInt().withMessage("CityId harus angka"),
         body("districtId").isInt().withMessage("DistrictId harus angka"),
+        body("roleId").isInt().withMessage("RoleId harus angka"),
+        body("jobTitleId").isInt().withMessage("JobTitleId harus angka"),
         body("villageId").isInt().withMessage("VillageId harus angka"),
         body("username").notEmpty().withMessage("Username wajib diisi"),
         body("email").isEmail().withMessage("Email harus valid"),
