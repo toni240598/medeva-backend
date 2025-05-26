@@ -74,4 +74,4 @@ Langkah-langkah umum:
 
 * Folder uploads/ digunakan untuk menyimpan file foto, pastikan folder ini ada dan memiliki izin tulis.
 
-* Proyek ini hanya menggunakan npm. Tidak disarankan menggunakan pnpm atau yarn.
+* Intruksi proyek ini hanya menggunakan npm. disarankan juga jika ingin menggunakan pnpm atau yarn.
