@@ -95,7 +95,7 @@ const createEmployee = async (req, res) => {
         fullName, identityNumber, gender, birthPlace, birthDate,
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
-        contractStartDate, contractEndDate, maritalStatus, doctorCodeId,
+        contractStartDate, contractEndDate, martialStatus, doctorCodeId,
         jobTitleId, jobTitleLabel, roleIds
     } = req.body;
     const photoUrl = req.file ? `/api/files/${req.file.filename}` : null;
@@ -108,7 +108,7 @@ const createEmployee = async (req, res) => {
         fullName, identityNumber, gender, birthPlace, birthDate,
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
-        contractStartDate, contractEndDate, maritalStatus, doctorCodeId,
+        contractStartDate, contractEndDate, martialStatus, doctorCodeId,
         photoUrl, jobTitleId, jobTitleLabel, 
     });
     await newEmployee.setRoles(req.body.roleIds);

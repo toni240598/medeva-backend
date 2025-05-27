@@ -89,7 +89,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATEONLY,
         allowNull: true,
       },
-      maritalStatus: {
+      martialStatus: {
         type: DataTypes.ENUM("single", "married", "divorced"),
         allowNull: true,
       },

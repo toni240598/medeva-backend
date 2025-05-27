@@ -73,7 +73,7 @@ router.post(
         body("password").isLength({ min: 6 }).withMessage("Password minimal 6 karakter"),
         body("contractStartDate").isDate().withMessage("Tanggal mulai kontrak harus valid"),
         body("contractEndDate").optional({ nullable: true }).isDate().withMessage("Tanggal selesai kontrak harus valid"),
-        body("maritialStatus").isIn(["single", "married", "divorced"]).withMessage("Status menikah tidak valid"),
+        body("martialStatus").isIn(["single", "married", "divorced"]).withMessage("Status menikah tidak valid"),
         body("doctorCodeId").isInt().withMessage("DoctorCodeId harus angka"),
     ],
     validateRequest,
