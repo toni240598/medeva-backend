@@ -96,20 +96,19 @@ const createEmployee = async (req, res) => {
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
         contractStartDate, contractEndDate, martialStatus, doctorCodeId,
-        jobTitleId, jobTitleLabel, roleIds
+        jobTitleId, roleIds, customJobTitle,
     } = req.body;
     const photoUrl = req.file ? `/api/files/${req.file.filename}` : null;
     const dataRoleIds = Array.isArray(roleIds)
         ? roleIds.map(id => parseInt(id))
         : [parseInt(roleIds)];
-    // console.log(dataRoleIds);
 
     const newEmployee = await Employee.create({
         fullName, identityNumber, gender, birthPlace, birthDate,
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
         contractStartDate, contractEndDate, martialStatus, doctorCodeId,
-        photoUrl, jobTitleId, jobTitleLabel, 
+        photoUrl, jobTitleId, customJobTitle, 
     });
     await newEmployee.setRoles(req.body.roleIds);
     res.status(201).json(newEmployee);
