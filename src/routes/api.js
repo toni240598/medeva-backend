@@ -4,7 +4,8 @@ const { login } = require('../controllers/authController');
 const { getProfile, getRoles, getJobTitles, createRole, createJobTitle, getProvinces, createProvince, getCities, createCity, getDistricts,
     createDistrict, getVillages, createVillage, getDoctorCodes,
     createDoctorCode, createEmployee,
-    getEmployees } = require('../controllers/employeeController');
+    getEmployees, 
+    updateEmployee} = require('../controllers/employeeController');
 const authenticateToken = require('../middlewares/authMiddleware');
 const { validateRequest } = require('../utils/validator');
 const { buildValidators, bodyValidator } = require('../utils/validatorBuilder');
@@ -78,5 +79,34 @@ router.post(
     ],
     validateRequest,
     createEmployee
+);
+
+router.put(
+    "/employees/:id",
+    authenticateToken,
+    upload.single("photo"),
+    [
+        body("fullName").notEmpty().withMessage("Nama lengkap wajib diisi"),
+        body("identityNumber").notEmpty().withMessage("No kartu identitas wajib diisi"),
+        body("gender").isIn(["male", "female"]).withMessage("Jenis kelamin harus 'male' atau 'female'"),
+        body("birthPlace").notEmpty().withMessage("Tempat lahir wajib diisi"),
+        body("birthDate").isDate().withMessage("Tanggal lahir harus valid"),
+        body("phoneNumber").notEmpty().withMessage("No telepon wajib diisi"),
+        body("provinceId").isInt().withMessage("ProvinceId harus angka"),
+        body("cityId").isInt().withMessage("CityId harus angka"),
+        body("districtId").isInt().withMessage("DistrictId harus angka"),
+        body("roleIds.*")
+            .isInt().withMessage("Setiap RoleId harus berupa angka"),
+        body("jobTitleId").isInt().withMessage("JobeTitleId harus angka"),
+        body("villageId").isInt().withMessage("VillageId harus angka"),
+        body("username").notEmpty().withMessage("Username wajib diisi"),
+        body("email").isEmail().withMessage("Email harus valid"),
+        body("contractStartDate").isDate().withMessage("Tanggal mulai kontrak harus valid"),
+        body("contractEndDate").optional({ nullable: true }).isDate().withMessage("Tanggal selesai kontrak harus valid"),
+        body("martialStatus").isIn(["single", "married", "divorced"]).withMessage("Status menikah tidak valid"),
+        body("doctorCodeId").isInt().withMessage("DoctorCodeId harus angka"),
+    ],
+    validateRequest,
+    updateEmployee,
 );
 module.exports = router;

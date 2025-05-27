@@ -1,4 +1,5 @@
 const { Op } = require("sequelize");
+const createError = require('http-errors');
 const { Role, JobTitle, Province, City, District, Village, DoctorCode, Employee } = require('../models');
 
 const getProfile = (req, res) => {
@@ -98,6 +99,27 @@ const createEmployee = async (req, res) => {
         contractStartDate, contractEndDate, martialStatus, doctorCodeId,
         jobTitleId, roleIds, customJobTitle,
     } = req.body;
+
+    // Cek apakah salah satu sudah ada
+    const existingEmployee = await Employee.findOne({
+        where: {
+            [Op.or]: [
+                { email },
+                { username },
+                { identityNumber }
+            ]
+        }
+    });
+
+    if (existingEmployee) {
+        const conflictFields = [];
+        if (existingEmployee.email === email) conflictFields.push('email');
+        if (existingEmployee.username === username) conflictFields.push('username');
+        if (existingEmployee.identityNumber === identityNumber) conflictFields.push('identityNumber');
+
+        throw createError(409, `${conflictFields.join(', ')} already exist`);
+    }
+
     const photoUrl = req.file ? `/api/files/${req.file.filename}` : null;
     const dataRoleIds = Array.isArray(roleIds)
         ? roleIds.map(id => parseInt(id))
@@ -108,10 +130,69 @@ const createEmployee = async (req, res) => {
         phoneNumber, provinceId, cityId, districtId, villageId,
         addressDetail, username, email, password,
         contractStartDate, contractEndDate, martialStatus, doctorCodeId,
-        photoUrl, jobTitleId, customJobTitle, 
+        photoUrl, jobTitleId, customJobTitle,
     });
-    await newEmployee.setRoles(req.body.roleIds);
+    await newEmployee.setRoles(dataRoleIds);
     res.status(201).json(newEmployee);
+}
+
+
+const updateEmployee = async (req, res) => {
+    const { id } = req.params;
+    const {
+        fullName, identityNumber, gender, birthPlace, birthDate,
+        phoneNumber, provinceId, cityId, districtId, villageId,
+        addressDetail, username, email, martialStatus, doctorCodeId,
+        contractStartDate, contractEndDate,
+        jobTitleId, roleIds, customJobTitle,
+    } = req.body;
+
+    // Cek apakah salah satu sudah ada
+    const existingEmployee = await Employee.findOne({
+        where: {
+            [Op.and]: [
+                {
+                    [Op.or]: [
+                        { email },
+                        { username },
+                        { identityNumber }
+                    ]
+                },
+                { id: { [Op.ne]: id } } // pengecualian untuk id milik dirinya sendiri
+            ]
+        }
+    });
+
+    if (existingEmployee) {
+        const conflictFields = [];
+        if (existingEmployee.email === email) conflictFields.push('email');
+        if (existingEmployee.username === username) conflictFields.push('username');
+        if (existingEmployee.identityNumber === identityNumber) conflictFields.push('identityNumber');
+
+        throw createError(409, `${conflictFields.join(', ')} already exist`);
+    }
+
+    // const photoUrl = req.file ? `/api/files/${req.file.filename}` : null;
+    const dataRoleIds = Array.isArray(roleIds)
+        ? roleIds.map(id => parseInt(id))
+        : [parseInt(roleIds)];
+
+    // Cari employee berdasarkan ID
+    const employee = await Employee.findByPk(id);
+    if (!employee) {
+        throw createError(404, 'Employee not found');
+    }
+
+    // Update data employee
+    await employee.update({
+        fullName, identityNumber, gender, birthPlace, birthDate,
+        phoneNumber, provinceId, cityId, districtId, villageId,
+        addressDetail, username, email,
+        contractStartDate, contractEndDate, martialStatus, doctorCodeId,
+        jobTitleId, customJobTitle,
+    });
+    await employee.setRoles(dataRoleIds);
+    res.status(201).json(employee);
 }
 
 const getEmployees = async (req, res) => {
@@ -133,4 +214,5 @@ const getEmployees = async (req, res) => {
 module.exports = {
     getProfile, getRoles, getJobTitles, createRole, createJobTitle, getProvinces, createProvince, getCities, createCity,
     getDistricts, createDistrict, getVillages, createVillage, getDoctorCodes, createDoctorCode, getEmployees, createEmployee,
+    updateEmployee,
 };
